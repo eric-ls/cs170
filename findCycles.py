@@ -55,11 +55,24 @@ def testThree():
 	print "\ncomputed value: " + str(findTwentyCycles(outgoing, index))
 	print "answer:         " + str(output) + "\n"
 
+# class Graph(object):
+# 	pass
+
+def testFour():
+	index = 1
+	outgoing = {0:set([1, 3, 6]), 1:set([4, 7]), 2:set([0, 1]), 3:set([]), 4:set([5]), 5:set([2]), 6:set([9]), 7:set([]), 8:set([2, 7, 10]), 9:set([10])}
+	output = []
+	marked = set([2])
+	graph = Graph()
+	graph.outgoing_edges = outgoing
+	print "\ncomputed value: " + str(findTwentyCycles(graph, index, marked))
+	print "answer:         " + str(output) + "\n"
 
 def runTests():
-	testOne()
-	testTwo()
+	#testOne()
+	#testTwo()
 	# testThree()
+	# testFour()
 
 # runTests()
 

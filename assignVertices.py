@@ -13,6 +13,7 @@ def assignCycles(graph):
 		best_score = 0
 		
 		bestdisjointCyclesToAdd = []
+		bestVerticesToRemoveFromAssigned = []
 
 		for cycle in cycles:
 
@@ -71,6 +72,7 @@ def assignCycles(graph):
 					best_score = total_score
 					best_cycle = cycle
 					bestdisjointCyclesToAdd = disjointCyclesToAdd
+					bestVerticesToRemoveFromAssigned = removedVertices
 
 			else:
 				if cycle_add_score > best_score:
@@ -79,6 +81,9 @@ def assignCycles(graph):
 
 		for best_cycle_vertex in best_cycle:
 			assignedCycles[best_cycle_vertex] = best_cycle
+
+		for removalVertex in bestVerticesToRemoveFromAssigned:
+			assignedCycles.pop(removalVertex)
 
 		for disjointCycle in bestdisjointCyclesToAdd:
 			for disjoint_cycle_vertex in disjointCycle:
