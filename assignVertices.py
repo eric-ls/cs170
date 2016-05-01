@@ -36,9 +36,13 @@ def assignCycles(graph):
 					removedVertices = removedVertices.union(assignedCycles[overlappingVertex])
 
 				assignedCopy = copy.deepcopy(assignedCycles)
-				cycle_remove_score = len(removedVertices)
+				cycle_remove_score = 0
 				for toRemoveVertex in removedVertices:
 					assignedCopy.pop(toRemoveVertex)
+					if toRemoveVertex in graph.children_indices:
+						cycle_remove_score += 2
+					else:
+						cycle_remove_score += 1
 
 				for current_cycle_vertex in cycle:
 					assignedCopy[current_cycle_vertex] = cycle
@@ -55,12 +59,12 @@ def assignCycles(graph):
 							best_disjoint_cycle = disjointCycle
 					if best_disjoint_cycle != None:
 						disjointCyclesToAdd.append(best_disjoint_cycle)
-						disjoint_cycle_add_score += len(best_disjoint_cycle)
-
-					if best_disjoint_cycle is not None:
 						for local_disjoint_cycle_vertex in best_disjoint_cycle:
 							assignedCopy[local_disjoint_cycle_vertex] = best_disjoint_cycle
-
+							if local_disjoint_cycle_vertex in graph.children_indices:
+								disjoint_cycle_add_score += 2
+							else:
+								disjoint_cycle_add_score += 1
 
 				total_score = disjoint_cycle_add_score + cycle_add_score - cycle_remove_score
 				if total_score > best_score:
