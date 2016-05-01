@@ -122,27 +122,18 @@ def assignCycles(graph):
 					best_cycle = cycle
 					best_score = cycle_add_score
 
-		# assign the chosen cycle
-		for best_cycle_vertex in best_cycle:
-			assignedCycles[best_cycle_vertex] = best_cycle
-
 		# remove the destroyed cycles
 		for removalVertex in bestVerticesToRemoveFromAssigned:
 			assignedCycles.pop(removalVertex)
+
+		# assign the chosen cycle
+		for best_cycle_vertex in best_cycle:
+			assignedCycles[best_cycle_vertex] = best_cycle
 
 		# add the replacement disjoint cycles
 		for disjointCycle in bestdisjointCyclesToAdd:
 			for disjoint_cycle_vertex in disjointCycle:
 				assignedCycles[disjoint_cycle_vertex] = disjointCycle
-
-		# allItems = set()
-		# for key, value in assignedCycles.iteritems():
-		# 	for item in value:
-		# 		if item in allItems:
-		# 			import pdb;
-		# 			pdb.set_trace()
-		# 		else:
-		# 			allItems.add(item)
 
 	# return a list of tuples
 	final_cycles_set = set()
