@@ -1,6 +1,8 @@
 import copy
+import initialize
 
-def findTwentyCycles(outgoingEdgesMap, vertexIndex, marked=None):
+def findTwentyCycles(graph, vertexIndex, marked=None):
+	outgoingEdgesMap = graph.outgoing_edges
 	if marked == None:
 		marked = set()
 
@@ -15,8 +17,8 @@ def unmarkingDFS(startvertex, vertex, outgoingEdgesMap, marked, stack, depth, pa
         stack.append(vertex)
 
         if depth < 5:
-	        for outgoingVertex in (outgoingEdgesMap[vertex]): 
-	        	
+	        for outgoingVertex in (outgoingEdgesMap[vertex]):
+
 	        	if outgoingVertex == startvertex:
 			        # we've found a path
 			        # the path is the stack
@@ -32,16 +34,18 @@ def unmarkingDFS(startvertex, vertex, outgoingEdgesMap, marked, stack, depth, pa
 
 def testOne():
 	index = 0
-	outgoing = {0:set([1]), 1:set([2]), 2:set([3]), 3:set([4]), 4:set([0])}
+	# outgoing = {0:set([1]), 1:set([2]), 2:set([3]), 3:set([4]), 4:set([0])}
+	graph = initialize.initialize("simple_instance.in")
 	output = [[0, 1, 2, 3, 4]]
-	print "\ncomputed value: " + str(findTwentyCycles(outgoing, index))
+	print "\ncomputed value: " + str(findTwentyCycles(graph, index))
 	print "answer:         " + str(output) + "\n"
 
 def testTwo():
 	index = 2
-	outgoing = {0:set([1]), 1:set([2]), 2:set([3]), 3:set([4]), 4:set([0, 2])}
+	# outgoing = {0:set([1]), 1:set([2]), 2:set([3]), 3:set([4]), 4:set([0, 2])}
+	graph = initialize.initialize("simple_instance2.in")
 	output = [[2, 3, 4, 0, 1], [2, 3, 4]]
-	print "\ncomputed value: " + str(findTwentyCycles(outgoing, index))
+	print "\ncomputed value: " + str(findTwentyCycles(graph, index))
 	print "answer:         " + str(output) + "\n"
 
 def testThree():
@@ -55,7 +59,7 @@ def testThree():
 def runTests():
 	testOne()
 	testTwo()
-	testThree()
+	# testThree()
 
 runTests()
 
