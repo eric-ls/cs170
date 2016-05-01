@@ -22,4 +22,14 @@ def output():
     print(instanceString)
     output.write(instanceString + '\n')
 
+instance = 340
+def outputInstance(instance):
+  output = open('solutions.out', 'w')
+  filename = "instances/" + str(instance) + ".in"
+  cycles_list = solveKidneys(filename)
+  instanceString = formatString(cycles_list)
+  print(instanceString)
+  output.write(instanceString + '\n')
+
 output()
+# outputInstance()

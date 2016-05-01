@@ -14,7 +14,7 @@ def assignCycles(graph):
 
 		best_cycle = []
 		best_score = 0
-		
+
 		bestdisjointCyclesToAdd = []
 		bestVerticesToRemoveFromAssigned = []
 
@@ -35,7 +35,7 @@ def assignCycles(graph):
 
 			# if some vertices overlap we must backtrack
 			if len(overlappingVertices) > 0:
-				
+
 				# the set of removed vertices is the union of all cycles
 				# of overlapping vertices
 				removedVertices = set()
@@ -69,7 +69,7 @@ def assignCycles(graph):
 					disjointCycles = findTwentyCycles(graph, toRemoveVertex, set(assignedCopy.keys()))
 					best_disjoint_cycle = None
 					best_disjoint_cycle_score = 0
-					
+
 					# consider each disjointCycle
 					for disjointCycle in disjointCycles:
 
@@ -97,7 +97,7 @@ def assignCycles(graph):
 						disjointCyclesToAdd.append(best_disjoint_cycle)
 						for local_disjoint_cycle_vertex in best_disjoint_cycle:
 							assignedCopy[local_disjoint_cycle_vertex] = best_disjoint_cycle
-						
+
 						# add this disjoint cycle to the sum of disjoint cycle scores
 						# FOR this current cycle
 						disjoint_cycle_add_score += best_disjoint_cycle_score
@@ -107,7 +107,7 @@ def assignCycles(graph):
 				# the sum of the cycle itself
 				# minus the cost of the cycles we have to remove
 				total_score = disjoint_cycle_add_score + cycle_add_score - cycle_remove_score
-				
+
 				# update everything IF this is the best situation
 				if total_score > best_score:
 					best_score = total_score
