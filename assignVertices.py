@@ -7,7 +7,6 @@ def assignCycles(graph):
 	assignedCycles = {}
 
 	for vertex in graph.vertices:
-
 		cycles = findTwentyCycles(graph, vertex)
 
 		best_cycle = []
@@ -57,6 +56,11 @@ def assignCycles(graph):
 					if best_disjoint_cycle != None:
 						disjointCyclesToAdd.append(best_disjoint_cycle)
 						disjoint_cycle_add_score += len(best_disjoint_cycle)
+
+					if best_disjoint_cycle is not None:
+						for local_disjoint_cycle_vertex in best_disjoint_cycle:
+							assignedCopy[local_disjoint_cycle_vertex] = best_disjoint_cycle
+
 
 				total_score = disjoint_cycle_add_score + cycle_add_score - cycle_remove_score
 				if total_score > best_score:
