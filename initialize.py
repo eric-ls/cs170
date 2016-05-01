@@ -1,3 +1,5 @@
+iterations = 0
+
 class Graph:
 
   def __init__(self, cardinality, children_indices):
@@ -32,7 +34,13 @@ class Graph:
     print self.outgoing_edges
     print self.vertices
 
+  def summary(self):
+    global iterations
+    print "FINAL LENGTH: " + str(len(self.vertices))
+    print "NUM OF ITERATIONS: " + str(iterations)
+
   def prune(self):
+    global iterations
     should_continue = True
 
     def prune_vertex(vertex):
@@ -46,6 +54,7 @@ class Graph:
           self.remove_outgoing_edge(parent, vertex)
 
     while should_continue:
+      iterations += 1
       should_continue = False
       to_remove = []
       for vertex in self.vertices:
@@ -62,21 +71,21 @@ class Graph:
 def initialize(file_name):
   with open(file_name, 'r') as file_instance:
     cardinality = int(file_instance.readline())
-    children_line = file_instance.readline()
-    if len(children_line.strip()) > 0:
+    children_line = file_instance.readline().strip()
+    if len(children_line) > 0:
       children_indices = [int(child) for child in children_line.split(' ')]
     else:
       children_indices = []
     graph_instance = Graph(cardinality, children_indices)
     current_index = 0
-    current_line = file_instance.readline()
+    current_line = file_instance.readline().strip()
     while len(current_line) > 0:
       neighbor_indices = [int(neighbor) for neighbor in current_line.split(' ')]
       for neighbor_index, is_edge in enumerate(neighbor_indices):
         if is_edge is 1:
           graph_instance.add_incoming_edge(current_index, neighbor_index)
           graph_instance.add_outgoing_edge(current_index, neighbor_index)
-      current_line = file_instance.readline()
+      current_line = file_instance.readline().strip()
       current_index += 1
     graph_instance.prune()
     return graph_instance
