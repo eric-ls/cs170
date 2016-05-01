@@ -6,4 +6,4 @@ def solveKidneys(filename):
 	cycles_list = assignCycles(graph)
 	print cycles_list
 
-solveKidneys("all_one_instance.in")
+solveKidneys("backtracking_instance.in")
