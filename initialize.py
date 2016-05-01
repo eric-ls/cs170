@@ -4,7 +4,7 @@ class Graph:
 
   def __init__(self, cardinality, children_indices):
     self.cardinality = cardinality
-    self.children_indices = children_indices
+    self.children_indices = dict(zip(children_indices, [True for _ in range(len(children_indices))]))
     self.incoming_edges = {}
     self.outgoing_edges = {}
     self.vertices = [index for index in range(cardinality)]
