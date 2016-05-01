@@ -6,8 +6,14 @@ def assignCycles(graph):
 	# maps vertices to their assigned cycle
 	assignedCycles = {}
 
+	def sortfunc(vertex):
+		if vertex in graph.children_indices:
+			return 0
+		else:
+			return 1
+	allVertices = sorted(graph.vertices, key=sortfunc)
 	# iterate through all the vertices, considering one at a time
-	for vertex in graph.vertices:
+	for vertex in allVertices:
 
 		# find cycles for the vertex
 		cycles = findTwentyCycles(graph, vertex)
