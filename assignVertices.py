@@ -84,7 +84,7 @@ def assignCycles(graph):
 						# if it is greater than any other disjoint cycle
 						# FOR this vertex, make it the best
 						if disjointCycleScore > best_disjoint_cycle_score:
-							best_disjoint_cycle_score = disjointCycle
+							best_disjoint_cycle_score = disjointCycleScore
 							best_disjoint_cycle = disjointCycle
 
 					# if a best cycle exists
@@ -134,6 +134,15 @@ def assignCycles(graph):
 		for disjointCycle in bestdisjointCyclesToAdd:
 			for disjoint_cycle_vertex in disjointCycle:
 				assignedCycles[disjoint_cycle_vertex] = disjointCycle
+
+		# allItems = set()
+		# for key, value in assignedCycles.iteritems():
+		# 	for item in value:
+		# 		if item in allItems:
+		# 			import pdb;
+		# 			pdb.set_trace()
+		# 		else:
+		# 			allItems.add(item)
 
 	# return a list of tuples
 	final_cycles_set = set()
