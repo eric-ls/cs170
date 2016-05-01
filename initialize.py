@@ -31,13 +31,17 @@ class Graph:
     print self.outgoing_edges
 
 def initialize(file_name):
-  with open(file_name) as file_instance:
-    cardinality = int(file_instance.readLine())
-    children_indices = [int(child) for child in file_instance.readLine().split(' ')]
+  with open(file_name, 'r') as file_instance:
+    cardinality = int(file_instance.readline())
+
+    children_line = file_instance.readline();
+    if (len(children_line) > 0):
+      children_indices = [int(child) for child in file_instance.readline().split(' ')]
     graph_instance = Graph(cardinality, children_indices)
     current_index = 0
-    current_line = file_instance.readLine()
+    current_line = file_instance.readline()
     while current_line is not '':
+      print current_line
       neighbor_indices = [int(neighbor) for neighbor in current_line.split(' ')]
       for neighbor_index, is_edge in enumerate(neighbor_indices):
         if is_edge is 1:
