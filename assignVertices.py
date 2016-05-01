@@ -1,15 +1,15 @@
 import copy
+from findCycles import findTwentyCycles
 
 def assignCycles(graph):
 
 	# maps vertices to their assigned cycle
 	assignedCycles = {}
 
-	for vertex in vertices:
+	for vertex in graph.vertices:
 
 		cycles = findTwentyCycles(graph, vertex)
 
-		cycles.append()
 		best_cycle = []
 		best_score = 0
 		
@@ -34,13 +34,12 @@ def assignCycles(graph):
 				# temporary backtrack
 				removedVertices = set()
 				for overlappingVertex in overlappingVertices:
-					for overlappingCycle in assignedCycles[overlappingVertex]:
-						removedVertices = removedVertices.union(overlappingCycle)
+					removedVertices = removedVertices.union(assignedCycles[overlappingVertex])
 
 				assignedCopy = copy.deepcopy(assignedCycles)
 				cycle_remove_score = len(removedVertices)
 				for toRemoveVertex in removedVertices:
-					assignedCopy.pop()
+					assignedCopy.pop(toRemoveVertex)
 
 				for current_cycle_vertex in cycle:
 					assignedCopy[current_cycle_vertex] = cycle
@@ -48,7 +47,7 @@ def assignCycles(graph):
 				disjointCyclesToAdd = []
 				disjoint_cycle_add_score = 0
 				for toRemoveVertex in removedVertices:
-					disjointCycles = findTwentyCycles(graph, toRemoveVertex, assignedCopy)
+					disjointCycles = findTwentyCycles(graph, toRemoveVertex, set(assignedCopy.keys()))
 					best_disjoint_cycle = None
 					best_disjoint_cycle_score = 0
 					for disjointCycle in disjointCycles:
@@ -68,7 +67,7 @@ def assignCycles(graph):
 			else:
 				if cycle_add_score > best_score:
 					best_cycle = cycle
-					best_score = cycle_add_scores
+					best_score = cycle_add_score
 
 		for best_cycle_vertex in best_cycle:
 			assignedCycles[best_cycle_vertex] = best_cycle
@@ -77,9 +76,9 @@ def assignCycles(graph):
 			for disjoint_cycle_vertex in disjointCycle:
 				assignedCycles[disjoint_cycle_vertex] = disjointCycle
 
-	final_cycles_set = {}
+	final_cycles_set = set()
 	for key, value in assignedCycles.iteritems():
-		final_cycles_set.add(value)
+		final_cycles_set.add(tuple(value))
 	final_cycles_list = list(final_cycles_set)
 	return final_cycles_list
 
