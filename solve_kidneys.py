@@ -99,21 +99,17 @@ def findTwentyCycles(graph, vertexIndex, marked=None):
   return paths
 
 def unmarkingDFS(startvertex, vertex, outgoingEdgesMap, marked, stack, depth, paths, pathCap):
-  if vertex not in marked and len(paths) < pathCap:
-
+  if len(paths) < pathCap and depth < 5 and vertex not in marked:
     marked.add(vertex)
     stack.append(vertex)
 
-    if depth < 5:
-      for outgoingVertex in (outgoingEdgesMap[vertex]):
-        if outgoingVertex == startvertex:
-          # we've found a path
-          # the path is the stack
-          path = copy.copy(stack)
-          paths.append(path)
+    if startvertex in outgoingEdgesMap[vertex]:
+      path = copy.copy(stack)
+      paths.append(path)
 
-        else:
-          unmarkingDFS(startvertex, outgoingVertex, outgoingEdgesMap, marked, stack, depth + 1, paths, pathCap)
+    outgoingEdgesSet = (outgoingEdgesMap[vertex]) - marked
+    for outgoingVertex in list(outgoingEdgesSet)[:20]:
+      unmarkingDFS(startvertex, outgoingVertex, outgoingEdgesMap, marked, stack, depth + 1, paths, pathCap)
 
     marked.remove(vertex)
     stack.pop()
@@ -280,21 +276,20 @@ def format_string(cycles):
 
 def output():
   output = open('solutions.out', 'w')
-  for i in range(1, 493):
+  for i in range(1, 126):
     file_name = "instances/" + str(i) + ".in"
+    print "SOLVING INSTANCE:", str(i)
     cycles_list = solve_kidneys(file_name)
     instance_string = format_string(cycles_list)
-    print(instance_string)
     output.write(instance_string + '\n')
 
-instance = 340
-def output_instance(instance):
+def output_instance():
   output = open('solutions.out', 'w')
-  file_name = "instances/" + str(instance) + ".in"
+  file_name = "instances/" + str(139) + ".in"
   cycles_list = solve_kidneys(file_name)
   instance_string = format_string(cycles_list)
   print(instance_string)
   output.write(instance_string + '\n')
 
-output()
-# output_instance()
+# output()
+output_instance()
