@@ -89,10 +89,3 @@ def initialize(file_name):
       current_index += 1
     graph_instance.prune()
     return graph_instance
-
-# g = Graph(5, [])
-# g.add_outgoing_edge(1, 5)
-# g.add_outgoing_edge(1, 10)
-# g.add_incoming_edge(3, 5)
-# g.add_incoming_edge(2, 5)
-
