@@ -15,7 +15,7 @@ def formatString(cycles):
 
 def output():
   output = open('solutions.out', 'w')
-  for i in range(1, 493):
+  for i in range(126, 251):
     filename = "instances/" + str(i) + ".in"
     cycles_list = solveKidneys(filename)
     instanceString = formatString(cycles_list)
@@ -32,4 +32,4 @@ def outputInstance(instance):
   output.write(instanceString + '\n')
 
 output()
-# outputInstance()
+# outputInstance():
