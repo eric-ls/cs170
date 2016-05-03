@@ -37,7 +37,7 @@ class Graph:
 
   def summary(self):
     print "FINAL LENGTH: " + str(len(self.vertices))
-    print "NUM OF ITERATIONS: " + str(self.iterations)
+    print "NUMBER OF ITERATIONS: " + str(self.iterations)
 
   def prune(self):
     should_continue = True
@@ -127,6 +127,7 @@ def assignCycles(graph):
   allVertices = sorted(graph.vertices, key=sortfunc)
   # iterate through all the vertices, considering one at a time
   for vertex in allVertices:
+    print "PROCESSING VERTEX:", vertex
 
     # find cycles for the vertex
     cycles = findTwentyCycles(graph, vertex)
@@ -285,11 +286,11 @@ def output():
 
 def output_instance():
   output = open('solutions.out', 'w')
-  file_name = "instances/" + str(139) + ".in"
+  file_name = "instances/" + str(352) + ".in"
   cycles_list = solve_kidneys(file_name)
   instance_string = format_string(cycles_list)
   print(instance_string)
   output.write(instance_string + '\n')
 
-# output()
-output_instance()
+output()
+# output_instance()
